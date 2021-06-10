@@ -1,3 +1,14 @@
+# Here is my app CRUD react typescript + spring boot
++ Redux: 70% component
++ Use Axios
++ Because this is my first app so I use both class and funtionc component + hooks
++ Using both bootstrap 4 and ant design to build interface
+#### Link : https://www.youtube.com/watch?v=p8l-5NZNafI
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
