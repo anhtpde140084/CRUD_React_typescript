@@ -3,7 +3,7 @@
 + Use Axios
 + Because this is my first app I use both class and funtionc component + hooks. So it's pretty messy.
 + Using both bootstrap 4 and ant design to build interface
-#### Link : <a href="https://www.youtube.com/watch?v=p8l-5NZNafI" target="_blank"> Link detail video products </a>
+#### Link : <a href="https://www.youtube.com/watch?v=p8l-5NZNafI" target="_blank">Detail video product</a>
 
 
 
