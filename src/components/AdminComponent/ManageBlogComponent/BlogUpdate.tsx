@@ -47,6 +47,9 @@ const Toast = Swal.mixin({
 })
 // ================================================================
 
+/**
+ * Interface
+ */
 interface IBlog {
     id: any,
     content: string,
@@ -62,6 +65,11 @@ interface IBlog {
 
  class BlogUpdate extends React.Component<any, IBlog> {
 
+    /**
+     * 
+     * @param props 
+     * Constructor default
+     */
     constructor(props: any) {
         super(props);
         this.state = {

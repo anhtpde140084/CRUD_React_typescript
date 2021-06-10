@@ -20,6 +20,9 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons';
  */
 export const ContactedList = (props: any) => {
 
+    /**
+     *  Set content
+     */
     const columns = [
 
         {
@@ -41,14 +44,20 @@ export const ContactedList = (props: any) => {
         },
 
     ]
+
     // set list for contactes
     const [contactList, setContactList] = useState([]);
+
     // get after render
     useEffect(() => {
         ContactService.getAllContacted().then((res) => {
             setContactList(res.data)
         })
     }, []);
+
+    /**
+     * Return
+     */
     return (
         <div>
             <Breadcrumb style={{ marginBottom: '70px' }}>

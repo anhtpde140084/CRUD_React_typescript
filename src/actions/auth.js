@@ -17,6 +17,11 @@ import AuthService from "../services/AdminService/AuthService";
  * 06-07-2021          Anhtp8
  */
 
+/**
+ * 
+ * @param {*} values 
+ * Login action
+ */
 export const login = (values) => (dispatch) => {
   return AuthService.login(values).then(
     (data) => {
@@ -24,7 +29,6 @@ export const login = (values) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: { user: data },
       });
-
       return Promise.resolve();
     },
     (error) => {
@@ -48,6 +52,10 @@ export const login = (values) => (dispatch) => {
   );
 };
 
+/**
+ * 
+ * Logout action
+ */
 export const logout = () => (dispatch) => {
   AuthService.logout();
   dispatch({

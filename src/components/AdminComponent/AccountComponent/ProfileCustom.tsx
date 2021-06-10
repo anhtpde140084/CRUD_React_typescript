@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Avatar, Form, Input, Button, Select, Modal, Breadcrumb } from 'antd';
-import {HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import AccService from '../../../services/AdminService/AccService';
 import { History } from 'history';
 import Swal from 'sweetalert2';
@@ -29,7 +29,9 @@ const { Option } = Select;
 
 
 // ===================
-
+/**
+ * Funtion belong sweet 2
+ */
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -41,12 +43,23 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
+/**
+ * Interface
+ */
 interface IPropsMatchAndHistory {
     match: any,
     history: History
 }
+/**
+ * 
+ * @param props 
+ * Main funtion 
+ */
 export const ProfileCustom = (props: IPropsMatchAndHistory) => {
 
+    /**
+     * Set state
+     */
     const [profile, setProfile] = useState({
         id: 1,
         age: 0,
@@ -67,11 +80,13 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
             name: ''
         }
     ]);
+
     // layout form
     const layout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 16 },
     };
+
     const tailLayout = {
         wrapperCol: { offset: 8, span: 16 },
     };
@@ -91,6 +106,7 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
     const showModal = () => {
         setVisible(true)
     };
+
     {/** submitform */ }
     const onFinish = (values: any) => {
         console.log(values);
@@ -110,19 +126,8 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
             console.warn('Not good man :(');
         })
 
-        const calculate_age = (dob1: Date) => {
-            var today = new Date();
-            var birthDate = new Date(dob1);  // create a date object directly from `dob1` argument
-            var age_now = today.getFullYear() - birthDate.getFullYear();
-            var m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age_now--;
-            }
-            console.log(age_now);
-            return age_now;
-        }
-
     };
+
     {/** like componentdidmount */ }
     useEffect(() => {
         AccService.getAccs().then((res) => {
@@ -155,6 +160,7 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
 
     };
 
+    // cancel button
     const cancel = () => {
         props.history.push("/admin/");
     }
@@ -163,21 +169,27 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
     form.setFieldsValue(profile);
 
 
+    // es6 for Option
     const elmCountries = countryData.map((country, index) => {
         return <Option value={country.name}>{country.name}</Option>
     })
 
-    const handleUpdload = async (e: any) => { /*async thực hiện bất đồng bộ và
+    /*async thực hiện bất đồng bộ và
         sẽ return bất kỳ giá trị nào đặt trong hàm */
+    const handleUpdload = async (e: any) => {
+
         const files = e.target.files;
-        const data = new FormData(); // call this one because no button submit
-        data.append('file', files[0]) //FormData.append(name, value) => tên data, giá trị của data
+        // call this one because no button submit
+        const data = new FormData(); 
+        //FormData.append(name, value) => tên data, giá trị của data
+        data.append('file', files[0]) 
         data.append('upload_preset', 'upload_image')
         const res = await axios({
             // await đặt trước 1 promise axios
             // đợi axios thực hiện xong thi mới thực hiện async 
             method: 'post',
-            url: 'https://api.cloudinary.com/v1_1/df66mvytc/image/upload', // api at cloudinary save image
+            // api at cloudinary save image
+            url: 'https://api.cloudinary.com/v1_1/df66mvytc/image/upload', 
             data: data
         }).then((res) => {
             const file = res.data.secure_url
@@ -198,15 +210,15 @@ export const ProfileCustom = (props: IPropsMatchAndHistory) => {
         })
     }
 
+    // return
     return (
-
         <div>
             <Breadcrumb style={{ marginBottom: '70px' }}>
                 <Breadcrumb.Item href="">
 
                 </Breadcrumb.Item>
                 <Breadcrumb.Item href="">
-                    <HomeOutlined/>
+                    <HomeOutlined />
                     <Link to="/admin/"><span>Blog Manage</span></Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>Profile</Breadcrumb.Item>

@@ -82,6 +82,11 @@ class BlogPost extends React.Component<any, IBlog> {
             onFocus: true
         }
     }
+
+    /**
+     * 
+     * Valid form
+     */
     validate = () => {
 
         // call state es6 syntax

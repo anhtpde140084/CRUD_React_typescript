@@ -16,7 +16,7 @@ const { Header } = Layout;
  * Modification Logs:
  * DATE                 AUTHOR          DESCRIPTION
  * -----------------------------------------------------------------------
- * 06-07-2021          Anhtp8
+ * 06-07-2021          Anhtp8           Header common
  */
 export const HeaderComponent = () => {
 

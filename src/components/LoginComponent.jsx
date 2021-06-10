@@ -22,10 +22,16 @@ import { input_error } from "../constant/MessageValid";
  * 06-07-2021          Anhtp8           Login page common 
  */
 const LoginComponent = (props) => {
+  /**
+   * selector state
+   */
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
-
+  const [mess, setMess]  = useState('')
+  // get dispatch
   const dispatch = useDispatch();
+
+  // css
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -33,8 +39,14 @@ const LoginComponent = (props) => {
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
   };
-  const [mess, setMess]  = useState('')
+  //=========================
 
+  
+/**
+ * 
+ * @param {*} values 
+ * submit event
+ */
   const onFinish = (values) => {
     dispatch(login(values))
       .then(() => {
@@ -45,9 +57,13 @@ const LoginComponent = (props) => {
         setMess("Username or password is incorrect!")
       });
   };
+
+  // check login
   if (isLoggedIn) {
     return <Redirect to="/admin/" />;
   }
+
+  // return
   return (
     <div>
       <div className="content">

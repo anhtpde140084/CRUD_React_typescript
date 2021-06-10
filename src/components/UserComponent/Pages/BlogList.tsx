@@ -31,6 +31,11 @@ interface IBlogs {
  * 06-07-2021          Anhtp8
  */
 class BlogList extends React.Component<RouteComponentProps<any>, IBlogs>{
+    /**
+     * 
+     * @param props 
+     * Constuctor default
+     */
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
@@ -42,7 +47,9 @@ class BlogList extends React.Component<RouteComponentProps<any>, IBlogs>{
         }
     }
 
-
+    /**
+     * fetch after render
+     */
     componentDidMount() {
         document.title = 'Blogs'
         UserServices.getAllBlog().then((res) => {
@@ -53,29 +60,28 @@ class BlogList extends React.Component<RouteComponentProps<any>, IBlogs>{
         })
     }
 
+    /**
+     * 
+     * @param id 
+     * view detail blog
+     */
+
     public viewBlog(id: number) {
 
         UserServices.getBlogById(id).then((res) => {
             console.log(res.data)
             this.props.history.push(`/blog/view-blog/${id}`);
         }).catch((err) => {
-            //   Swal.fire({
-            //     title: 'Resource not found!',
-            //     text: "Maybe the data has been deleted! Reload page to refresh data!",
-            //     icon: 'error',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     cancelButtonColor: '#d33',
-            //     confirmButtonText: 'Reload!'
-            //   }).then((result) => {
-            //     if (result.isConfirmed) {
-            //       window.location.reload();
-            //     }
-            //   })
+            console.log(err);
         })
 
     };
 
+    /**
+     * 
+     * @param values 
+     * Search event
+     */
     onsearch(values: string) {
         if (values === '') {
             this.setState({
@@ -97,6 +103,10 @@ class BlogList extends React.Component<RouteComponentProps<any>, IBlogs>{
             })
         }
     }
+
+    /** 
+     * Render
+     */
     render() {
         console.log(this.state.blogs);
         const IconText = ({ icon, text }: any) => (

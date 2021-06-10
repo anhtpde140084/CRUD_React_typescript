@@ -27,8 +27,17 @@ interface IPropsMatchAndHistory {
     match: any,
     history: History
 }
+
+/**
+ * 
+ * @param props 
+ * main
+ */
 export const DetailBlog = (props: IPropsMatchAndHistory) => {
 
+    /**
+     * set state
+     */
     const [blog, setBlog] = useState({
         id: props.match.params.id,
         title: '',
@@ -38,6 +47,9 @@ export const DetailBlog = (props: IPropsMatchAndHistory) => {
     }
     );
 
+    /**
+     * fetch after render
+     */
     useEffect(() => {
         UserServices.getBlogDetail(blog.id).then((res) => {
             setBlog(res.data);
@@ -45,6 +57,9 @@ export const DetailBlog = (props: IPropsMatchAndHistory) => {
     }, []);
     
     
+    /**
+     * return
+     */
     return (
         <Layout className="layout">
             <HeaderComponent />

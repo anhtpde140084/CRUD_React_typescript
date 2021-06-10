@@ -4,7 +4,7 @@ export const LOGOUT = "LOGOUT";
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
-
+// const for blog
 export const CREATE_BLOG = "CREATE_BLOG";
 export const RETRIEVE_BLOG = "RETRIEVE_BLOG";
 export const UPDATE_BLOG = "UPDATE_BLOG";

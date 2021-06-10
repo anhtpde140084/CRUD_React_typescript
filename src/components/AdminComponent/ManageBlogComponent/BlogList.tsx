@@ -8,7 +8,7 @@ import { Table, Space, Button, Image, Input, Breadcrumb, Tooltip } from 'antd';
 import { getSomethingWrong, resouceNotFound } from '../../../constant/MessageException';
 import { deleteSuccess } from '../../../constant/MessageException';
 import { connect } from 'react-redux';
-import {deleteBlog, findBlogByTitle, retrieveBlog} from '../../../actions/blog'
+import { deleteBlog, findBlogByTitle, retrieveBlog } from '../../../actions/blog'
 
 /**
  * BlogList
@@ -38,22 +38,31 @@ const Toast = Swal.mixin({
   }
 })
 
-
+/**
+ * Interface
+ */
 interface IBlogs {
   // whole data blogs
   blogs: any[];
   // pagination 
   totalPage: number,
   // set which one will show data
-  isSearch: any, 
+  isSearch: any,
   // set data has been found
-  dataSearch: any[] 
+  dataSearch: any[]
   , currentPage: any
 }
 
-
+/**
+ * Main
+ */
 class BlogList extends React.Component<any, IBlogs>{
 
+  /**
+   * 
+   * @param props 
+   * Constructor default
+   */
   constructor(props: any) {
     super(props);
     this.state = {
@@ -86,7 +95,7 @@ class BlogList extends React.Component<any, IBlogs>{
     {
       title: 'Title',
       // compare first charac
-      sorter: (a: any, b: any) => a.title.localeCompare(b.title), 
+      sorter: (a: any, b: any) => a.title.localeCompare(b.title),
       dataIndex: 'title',
       length: '100',
       width: '50%',
@@ -139,7 +148,7 @@ class BlogList extends React.Component<any, IBlogs>{
     if (values === '') {
       this.setState({
         // set default to fetch whole data
-        isSearch: false 
+        isSearch: false
       });
     } else {
       BlogServices.getBlogByTitle(values).then((res) => {
@@ -235,6 +244,11 @@ class BlogList extends React.Component<any, IBlogs>{
     });
   }
 
+  /**
+   * 
+   * @param id 
+   * Delete to confirm
+   */
   deleteBlog(id: number) {
     Swal.fire({
       title: 'Are you sure delete this record?',
@@ -250,6 +264,7 @@ class BlogList extends React.Component<any, IBlogs>{
       }
     })
   }
+
   // edit blog
   public editBlog = (id: number) => {
     BlogServices.getBlogById(id).then((res) => {
@@ -289,7 +304,13 @@ class BlogList extends React.Component<any, IBlogs>{
     let target = e.target as HTMLInputElement;
   }
 
-
+  /**
+   * 
+   * @param current 
+   * @param type 
+   * @param originalElement 
+   * set previous for pagination
+   */
   itemRender(current: any, type: any, originalElement: any) {
     if (type === 'prev') {
       return <a>Previous</a>;
@@ -309,23 +330,25 @@ class BlogList extends React.Component<any, IBlogs>{
 
           </Breadcrumb.Item>
           <Breadcrumb.Item href="">
-          <HomeOutlined/>
+            <HomeOutlined />
             <span >Blog Manage</span>
           </Breadcrumb.Item>
         </Breadcrumb>
         <Table key="index" columns={this.columns} dataSource={this.state.isSearch === false ? this.props.blogs : this.state.dataSearch}
-          pagination={{ itemRender: this.itemRender, showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-             defaultPageSize: 5, total: this.state.totalPage, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'], }}
+          pagination={{
+            itemRender: this.itemRender, showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            defaultPageSize: 5, total: this.state.totalPage, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'],
+          }}
         />
       </div >
     )
   }
 
 }
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
   return {
     blogs: state.blogs
-    
+
   };
 };
 export default connect(mapStateToProps, { deleteBlog, findBlogByTitle, retrieveBlog })(BlogList);

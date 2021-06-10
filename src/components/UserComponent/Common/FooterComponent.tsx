@@ -15,7 +15,7 @@ const { Footer } = Layout;
  * Modification Logs:
  * DATE                 AUTHOR          DESCRIPTION
  * -----------------------------------------------------------------------
- * 06-07-2021          Anhtp8
+ * 06-07-2021          Anhtp8           Page common
  */
 class FooterComponent extends Component {
     render() {

@@ -23,6 +23,9 @@ const { Header, Content, Footer } = Layout;
  */
 export const About = (props: any) => {
 
+    /**
+     * Set state
+     */
     const [infor, setInfor] = useState(
         {
             age: 0,
@@ -35,6 +38,9 @@ export const About = (props: any) => {
         }
     );
 
+    /**
+     * Fetch after render
+     */
     useEffect(() => {
         document.title = 'About'
         UserServices.getAccs().then((res) => {
@@ -42,7 +48,9 @@ export const About = (props: any) => {
         })
     }, []);
 
-    console.log(infor)
+    /**
+     * Return
+     */
 
     return (
         <Layout className="layout">

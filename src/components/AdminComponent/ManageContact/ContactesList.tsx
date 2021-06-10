@@ -23,6 +23,9 @@ import { deleteSuccess, getSomethingWrong } from '../../../constant/MessageExcep
 
 export const ContactesList = (props: any) => {
 
+    /**
+     * Content of list
+     */
     const columns = [
 
         {

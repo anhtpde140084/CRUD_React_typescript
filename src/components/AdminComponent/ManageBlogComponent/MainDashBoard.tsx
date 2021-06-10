@@ -33,6 +33,9 @@ const { SubMenu } = Menu;
 
 export const MainDashBoard = (props: any) => {
 
+    /**
+     * Set state
+     */
     const [collapsed, setCollapsed] = useState(false)
     const history = useHistory()
     const [isLogin, setIsLogin] = useState(false);
@@ -41,6 +44,9 @@ export const MainDashBoard = (props: any) => {
         setCollapsed(collapsed)
     };
 
+    /**
+     * fetch after render
+     */
     useEffect(() => {
         AccService.getAdminBoard().then((res) => {
             setIsLogin(true);
@@ -49,9 +55,13 @@ export const MainDashBoard = (props: any) => {
         })
     });
 
+    /**
+     * Check if was login => can not return login page
+     */
     if (isLogin === false) {
         <Redirect to="/login" />
     }
+    
     return (
         <div>
                 <Layout style={{ minHeight: '110vh' }}>

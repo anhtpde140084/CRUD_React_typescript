@@ -34,6 +34,9 @@ const Toast = Swal.mixin({
     }
 })
 
+/**
+ * Interface
+ */
 interface IBlogDetail {
     id: any,
     content: string,
@@ -44,6 +47,9 @@ interface IBlogDetail {
     create_date: string
 }
 
+/**
+ *  Main
+ */
 export default class BlogDetail extends React.Component<RouteComponentProps<any>, IBlogDetail> {
     constructor(props: RouteComponentProps) {
         super(props);

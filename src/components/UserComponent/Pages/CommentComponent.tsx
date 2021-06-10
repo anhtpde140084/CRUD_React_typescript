@@ -25,6 +25,9 @@ import { regexEmail, regexName } from '../../../constant/RegexConst';
  * 06-07-2021          Anhtp8
  */
 export const CommentComponent = (props: any) => {
+	/**
+	 * Set state
+	 */
 	const [comment, setComment] = useState([{
 		idBlog: '',
 		author: "",
@@ -40,6 +43,9 @@ export const CommentComponent = (props: any) => {
 	const [totalPage, setTotal] = useState(0);
 
 
+	/**
+	 * Fetch after render
+	 */
 	useEffect(() => {
 		UserServices.getComment(props.id_Blog).then((res) => {
 			setComment(res.data.slice(0, 5))

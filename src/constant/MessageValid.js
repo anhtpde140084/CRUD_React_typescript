@@ -1,11 +1,11 @@
 
-
+// set params
 const nameField = 'this field';
 const lengthCharac = '30';
 const validFormat = 'email';
 const formatDate = 'dd/mm/yyy';
 
-
+// main const error
 export const input_error = `Please input ${nameField} !`
 export const email_error = `Invalid format ${validFormat}!`
 export const name_error = `Name must be smaller than ${lengthCharac} characters!`

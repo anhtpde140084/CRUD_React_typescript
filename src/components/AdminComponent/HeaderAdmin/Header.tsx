@@ -20,6 +20,9 @@ import AccService from '../../../services/AdminService/AccService';
  */
 export const Header = (props: any) => {
 
+    /**
+     * set state
+     */
     const [profile, setProfile] = useState({
         id: 1,
         age: 0,
@@ -32,14 +35,19 @@ export const Header = (props: any) => {
         avatar: ''
     })
 
+    // ==============
     useEffect(() => {
         AccService.getAccs().then((res) => {
             setProfile(res.data)
         })
     }, []
     )
-
+    // call dispatch
     const dispatch = useDispatch()
+    
+    /**
+     * Logout event
+     */
     const logOut = () => {
         dispatch(logout())
     }

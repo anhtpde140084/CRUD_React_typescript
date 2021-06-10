@@ -1,6 +1,20 @@
 import axios from "axios";
 import { BASE_URL_USER } from "../CommonURL";
 
+/**
+ * UserSerivces
+ *
+ * Version 1.0
+ *
+ * Date: 06-07-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ * DATE                 AUTHOR          DESCRIPTION
+ * -----------------------------------------------------------------------
+ * 06-07-2021          Anhtp8           get Api for user
+ */
 class UserSerivces {
   getLastBlog() {
     return axios.get(BASE_URL_USER + "getLastBlog");

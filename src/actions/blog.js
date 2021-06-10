@@ -22,6 +22,12 @@ import {
  * -----------------------------------------------------------------------
  * 06-07-2021          Anhtp8
  */
+
+/**
+ * 
+ * @param {*} blog 
+ * Create Blog action
+ */
 export const createBlog = (blog) => async (dispatch) => {
   try {
     const res = await BlogService.createBlog(blog);
@@ -36,6 +42,10 @@ export const createBlog = (blog) => async (dispatch) => {
   }
 };
 
+/**
+ * 
+ * Get data blog
+ */
 export const retrieveBlog = () => async (dispatch) => {
   try {
     const res = await BlogService.getBlogs();
@@ -48,6 +58,11 @@ export const retrieveBlog = () => async (dispatch) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * getData by id
+ */
 export const retrieveBlogById = (id) => async (dispatch) => {
   try {
     const res = await BlogService.getBlogById(id);
@@ -60,6 +75,12 @@ export const retrieveBlogById = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} blog 
+ * Update blog detail
+ */
 export const updateBLogDetail = (id, blog) => async (dispatch) => {
   try {
     const res = await BlogService.updateBlog(blog, id);
@@ -75,6 +96,11 @@ export const updateBLogDetail = (id, blog) => async (dispatch) => {
   }
 };
 
+/**
+ * 
+ * @param {*} id 
+ * Delete Blog
+ */
 export const deleteBlog = (id) => async (dispatch) => {
   try {
     await BlogService.deleteBlog(id);
@@ -87,10 +113,14 @@ export const deleteBlog = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * 
+ * @param {*} title 
+ *  get data by title
+ */
 export const findBlogByTitle = (title) => async (dispatch) => {
   try {
     const res = await BlogService.getBlogByTitle(title);
-
     dispatch({
       type: RETRIEVE_BLOG,
       payload: res.data,

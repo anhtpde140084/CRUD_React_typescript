@@ -49,7 +49,11 @@ const Toast = Swal.mixin({
 
 export default class Contact extends React.Component<RouteComponentProps<any>, IContact> {
 
-
+    /**
+     * 
+     * @param props 
+     * Constuctor
+     */
     constructor(props: any) {
         super(props);
         this.state = {
@@ -69,7 +73,11 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
     };
 
 
-
+    /**
+     * 
+     * @param e 
+     * Change input html value to state
+     */
     handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         let target = e.target as HTMLInputElement;
@@ -78,6 +86,12 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
         } as any);
 
     }
+
+    /**
+     * 
+     * @param e 
+     * Save event
+     */
     save = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         let contactThread = {
@@ -108,6 +122,12 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
             } as any);
         }
     }
+
+    /**
+     * 
+     * @param e 
+     * set state for text area
+     */
     handleChange(e: any) {
         e.preventDefault();
         let target = e.target as HTMLInputElement;
@@ -115,6 +135,12 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
             content: e.target.value
         })
     }
+    
+    /**
+     * 
+     * @returns 
+     * valid form
+     */
     validate = () => {
         // call state es6 syntax
         var { name, email, content } = this.state
@@ -154,9 +180,17 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
         return true;
     }
 
+    /**
+     * set title page
+     */
     componentDidMount() {
         document.title = 'Contact'
     }
+    
+    /**
+     * 
+     * @returns 
+     */
     render() {
         return (
 
