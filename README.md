@@ -1,7 +1,7 @@
 # Here is my app CRUD react typescript + spring boot
 + Redux: 70% component
 + Use Axios
-+ Because this is my first app so I use both class and funtionc component + hooks
++ Because this is my first app I use both class and funtionc component + hooks. So it's pretty messy.
 + Using both bootstrap 4 and ant design to build interface
 #### Link : https://www.youtube.com/watch?v=p8l-5NZNafI
 
