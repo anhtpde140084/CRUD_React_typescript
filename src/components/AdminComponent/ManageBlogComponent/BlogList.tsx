@@ -143,22 +143,31 @@ class BlogList extends React.Component<any, IBlogs>{
 
   // onssert folow onchange
   onsearch(values: string) {
-
-
+    
     if (values === '') {
       this.setState({
         // set default to fetch whole data
+        totalPage: this.state.blogs.length,
         isSearch: false
       });
     } else {
-      BlogServices.getBlogByTitle(values).then((res) => {
-        console.log(res.data)
-        this.setState({
-          dataSearch: res.data,
-          isSearch: true,
-          totalPage: res.data.length
-        })
+      this.props.findBlogByTitle(values).then(()=>{
+       this.setState({
+         dataSearch: this.props.blogs,
+         isSearch: true,
+         totalPage: this.state.dataSearch.length
+       
+       })
       })
+      // BlogServices.getBlogByTitle(values).then((res) => {
+      //   console.log(res.data)
+        // this.setState({
+        //   dataSearch: res.data,
+        //   isSearch: true,
+        //   totalPage: res.data.length
+      //   })
+      // })
+
     }
   }
 
@@ -294,8 +303,13 @@ class BlogList extends React.Component<any, IBlogs>{
     //     totalPage: res.data.length
     //   });
     // });
-    this.props.retrieveBlog()
-
+    this.props.retrieveBlog().then(()=>{
+      this.setState({
+        blogs: this.props.blogs,
+        totalPage: this.props.blogs.length
+      })
+    })
+    console.log(this.state.blogs)
   }
 
   // handle when input change
@@ -334,7 +348,7 @@ class BlogList extends React.Component<any, IBlogs>{
             <span >Blog Manage</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Table key="index" columns={this.columns} dataSource={this.state.isSearch === false ? this.props.blogs : this.state.dataSearch}
+        <Table key="index" columns={this.columns} dataSource={this.state.isSearch === false ? this.state.blogs : this.state.dataSearch}
           pagination={{
             itemRender: this.itemRender, showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
             defaultPageSize: 5, total: this.state.totalPage, showSizeChanger: true, pageSizeOptions: ['5', '10', '15'],
@@ -347,8 +361,8 @@ class BlogList extends React.Component<any, IBlogs>{
 }
 const mapStateToProps = (state: any) => {
   return {
-    blogs: state.blogs
-
+    blogs: state.blogs,
+    
   };
 };
 export default connect(mapStateToProps, { deleteBlog, findBlogByTitle, retrieveBlog })(BlogList);

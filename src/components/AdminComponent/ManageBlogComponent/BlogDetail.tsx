@@ -6,6 +6,8 @@ import ReactHtmlParser, { processNodes, convertNodeToElement } from 'react-html-
 import {  Breadcrumb } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { retrieveBlogById } from '../../../actions/blog'
 
 /**
  * BlogDetail
@@ -50,8 +52,8 @@ interface IBlogDetail {
 /**
  *  Main
  */
-export default class BlogDetail extends React.Component<RouteComponentProps<any>, IBlogDetail> {
-    constructor(props: RouteComponentProps) {
+class BlogDetail extends React.Component<any, IBlogDetail> {
+    constructor(props: any) {
         super(props);
         this.state = {
             //nhận giá trị id từ route bằng dòng code dưới
@@ -68,8 +70,10 @@ export default class BlogDetail extends React.Component<RouteComponentProps<any>
 
     //After render
     componentDidMount() {
-        BlogService.getBlogById(this.state.id).then((res) => {
-            let blog = res.data;
+      //  BlogService.getBlogById(this.state.id).then((res) => 
+      this.props.retrieveBlogById(this.state.id).then(()=>
+      {
+            let blog = this.props.blogs;
             console.log(blog)
             this.setState({
                 content: blog.content,
@@ -80,23 +84,13 @@ export default class BlogDetail extends React.Component<RouteComponentProps<any>
                 create_date: blog.createDate
             });
 
-        }).catch((err) => {
-            if (err.response) {
+        }).catch(() => {
+            
                 Toast.fire({
                     icon: 'error',
                     title: "Resouce not found!"
                 })
-            } else if (err.request) {
-                Toast.fire({
-                    icon: 'error',
-                    title: err.message
-                })
-            } else {
-                Toast.fire({
-                    icon: 'error',
-                    title: err.message
-                })
-            }
+            
         });
 
     }
@@ -133,4 +127,10 @@ export default class BlogDetail extends React.Component<RouteComponentProps<any>
         );
     }
 }
-
+const mapStateToProps = (state: any) => {
+    return {
+      blogs: state.blogs,
+      
+    };
+  };
+  export default connect(mapStateToProps, { retrieveBlogById  })(BlogDetail);
