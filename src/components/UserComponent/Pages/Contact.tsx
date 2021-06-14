@@ -1,25 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HeaderComponent } from '../Common/HeaderComponent';
-import { Layout, Menu, Breadcrumb, Spin } from "antd";
-import { RouteComponentProps } from 'react-router-dom';
+import { Layout } from "antd";
 import '../../../styles/UserStyle/contact.css'
-import { Form, Input, InputNumber, Button } from 'antd';
+import { Form, Input, Select, Button } from 'antd';
 import FooterComponent from '../Common/FooterComponent';
 import ContactUserServices from '../../../services/UserService/ContactUserServices';
 import Swal from 'sweetalert2';
 import { regexEmail, regexLink, regexName } from '../../../constant/RegexConst';
 import { name_error, email_error, input_error } from '../../../constant/MessageValid'
-interface IContact {
-    name: string,
-    email: string,
-    content: string,
-    loading: boolean,
-    name_err: string,
-    email_err: string,
-    content_err: string,
 
-
-}
+const { Option } = Select
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -47,67 +37,34 @@ const Toast = Swal.mixin({
  * 06-07-2021          Anhtp8
  */
 
-export default class Contact extends React.Component<RouteComponentProps<any>, IContact> {
+
+
+export const Contact = (props: any) => {
+
 
     /**
-     * 
-     * @param props 
-     * Constuctor
+     * set title page
      */
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            name: '',
-            email: '',
-            content: '',
-            loading: false,
-            name_err: '',
-            email_err: '',
-            content_err: '',
+    useEffect(() => {
+        document.title = 'Contact'
+    });
 
-        }
-    }
-    layout = {
-        labelCol: { span: 8 },
+    const [isOther, setIsOther] = useState(false);
+    /**
+     * 
+     * @returns 
+     */
+    const layout = {
+        labelCol: { span: 4 },
         wrapperCol: { span: 16 },
     };
 
 
-    /**
-     * 
-     * @param e 
-     * Change input html value to state
-     */
-    handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        let target = e.target as HTMLInputElement;
-        this.setState({
-            [target.name]: target.value
-        } as any);
+    const createContact = (value: any) => {
 
-    }
-
-    /**
-     * 
-     * @param e 
-     * Save event
-     */
-    save = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-        e.preventDefault();
-        let contactThread = {
-            name: this.state.name,
-            email: this.state.email,
-            content: this.state.content,
-        };
-        console.log(contactThread)
-        const isValid = this.validate()
-        if (isValid) {
-            this.setState({ name_err: '', email_err: '', content_err: '' });
-            Toast.fire({
-                icon: 'success',
-                title: 'Sending...'
-            })
-            ContactUserServices.createContact(contactThread).then((res) => {
+        ContactUserServices.createContact(value).then((res) => {
+            if (res.data === 'ok') {
+                
                 Swal.fire({
                     title: 'Sent Successful!',
                     text: 'Thanks for your contact!',
@@ -115,135 +72,141 @@ export default class Contact extends React.Component<RouteComponentProps<any>, I
                     imageWidth: 400,
                     imageHeight: 200,
                 })
-            })
-            let target = e.target as HTMLInputElement;
-            this.setState({
-                [target.name]: ''
-            } as any);
-        }
-    }
+                form.setFieldsValue({
+                    name: '',
+                    content: '',
+                    email: '',
+                    message: ''
+                })
+            } else {
+                Swal.fire({
+                    title: "Send fail!",
+                    text: "Your email already send, please wait for our contact! If there is an urgent matter, please contact us by phone.",
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK!'
+                }).then((result) => {
 
-    /**
-     * 
-     * @param e 
-     * set state for text area
-     */
-    handleChange(e: any) {
-        e.preventDefault();
-        let target = e.target as HTMLInputElement;
-        this.setState({
-            content: e.target.value
+                })
+            }
+
         })
     }
-    
     /**
      * 
-     * @returns 
-     * valid form
+     * @param object contact Thread
      */
-    validate = () => {
-        // call state es6 syntax
-        var { name, email, content } = this.state
-        // create vari to check
-        let name_err = '';
-        let email_err = '';
-        let content_err = '';
+    const onFinish = (object: any) => {
+        let values = ({
+            name: form.getFieldValue('name'),
+            email: form.getFieldValue('email'),
+            content: form.getFieldValue('message')
+        })
 
-        // name check valid
-        if (name === '') {
-            name_err = input_error;
-        } else if (name.length > 30 || !regexName.exec(name)) {
-            name_err = name_error;
+        // check click selection
+        if (isOther) {
+            // if user click other select. 
+            Toast.fire({
+                icon: 'success',
+                title: 'Sending...'
+            })
+            console.log(values);
+            createContact(values);
+
+        } else {
+            // check if user not click other select. Put default
+            Toast.fire({
+                icon: 'success',
+                title: 'Sending...'
+            })
+            createContact(object)
         }
+    };
 
-        if (email === '') {
-            email_err = input_error
-            if (!regexEmail.exec(email)) {
-                email_err = email_error;
-            }
+    const [form] = Form.useForm();
+
+    const onChangeOther = (value: string) => {
+        switch (value) {
+            case 'other':
+                setIsOther(true)
+                return;
+            default: setIsOther(false)
+                return
         }
+    };
 
-        // img check valid
-        if (content === '') {
-            content_err = input_error;
-        }
-        else if (content.length > 200) {
-            content_err = "Message must be smaller than 200 characters!";
-        }
+    // return =================================
+    return (
 
+        <Layout className="layout">
 
-        if (name_err || email_err || content_err) {
-            this.setState({ name_err, email_err, content_err });
-            return false;
-        }
+            <HeaderComponent />
+            <div className="container">
 
-        return true;
-    }
+                <div className="contact-form">
+                    <header className="header">
+                        <h1 className="h1">Contact us</h1>
+                    </header>
+                    <div id="form">
+                        <div className="fish" id="fish"></div>
+                        <div className="fish" id="fish2"></div>
+                        <Form form={form} onFinish={onFinish} {...layout} id="waterform" name="nest-messages" >
+                            <div className="formgroup" >
+                                <Form.Item name="name" label="Name" rules={[{ required: true, message: input_error }, { max: 30, message: name_error }]}>
+                                    <Input maxLength={35} />
+                                </Form.Item>
+                            </div>
+                            <div className="formgroup" >
+                                <Form.Item name='email' label="Email" rules={[{ required: true, message: input_error }, { type: `email`, pattern: new RegExp(regexEmail), message: email_error }]}>
+                                    <Input />
+                                </Form.Item>
+                            </div>
+                            <div className="formgroup" >
+                                <Form.Item name='content' label="Purpose" rules={[{ required: true, message: 'Please choose one option!' }]}>
+                                    <Select onChange={onChangeOther}
+                                        placeholder="Select a option and change input text above"
+                                        allowClear
+                                    >
+                                        <Option value="advertising">Contact advertising</Option>
+                                        <Option value="post">Contact post</Option>
+                                        <Option value="recruitment">Contact recruitment</Option>
+                                        <Option value="other">Other</Option>
+                                    </Select>
+                                </Form.Item>
+                            </div>
+                            <div className="formgroup" >
+                                <Form.Item
+                                    noStyle
+                                    shouldUpdate={(prevValues, currentValues) => prevValues.content !== currentValues.content}
+                                >
+                                    {({ getFieldValue }) =>
+                                        getFieldValue('content') === 'other' ? (
+                                            <Form.Item
+                                                name="message"
+                                                label="Message"
 
-    /**
-     * set title page
-     */
-    componentDidMount() {
-        document.title = 'Contact'
-    }
-    
-    /**
-     * 
-     * @returns 
-     */
-    render() {
-        return (
-
-            <Layout className="layout">
-
-                <HeaderComponent />
-                <div className="container">
-
-                    <div className="contact-form">
-                        <header className="header">
-                            <h1 className="h1">Contact us</h1>
-                        </header>
-
-                        <div id="form">
-
-                            <div className="fish" id="fish"></div>
-                            <div className="fish" id="fish2"></div>
-
-                            <form id="waterform" onSubmit={this.save}>
-
-                                <div className="formgroup" id="name-form">
-                                    <label className="label">Your name*</label>
-                                    <input type="text" className="input" id="name" name="name" onChange={(e) => this.handleInputChanges(e)} />
-                                </div>
-                                <div style={{ fontSize: '15px', paddingLeft: '10px', color: 'red' }}>
-                                    {this.state.name_err}
-                                </div>
-                                <div className="formgroup" id="email-form">
-                                    <label className="label"  >Your e-mail*</label>
-                                    <input type="email" className="input" id="email" name="email" onChange={(e) => this.handleInputChanges(e)} />
-                                </div>
-                                <div style={{ fontSize: '15px', paddingLeft: '10px', color: 'red' }}>
-                                    {this.state.email_err}
-                                </div>
-
-                                <div className="formgroup" id="message-form">
-                                    <label className="label">Your message</label>
-                                    <textarea id="message" onChange={(e) => this.handleChange(e)} className="textarea" name="content"></textarea>
-                                </div>
-                                <div style={{ fontSize: '15px', paddingLeft: '10px', color: 'red' }}>
-                                    {this.state.content_err}
-                                </div>
-                                <input type="submit" className="Sub" value="Send your message!" />
-                            </form>
-                        </div>
-
-
+                                                rules={[{ required: true, message: input_error }, { max: 100, message: 'Content must be 100 characters!' }]}
+                                            >
+                                                <Input.TextArea maxLength={105} />
+                                            </Form.Item>
+                                        ) : null
+                                    }
+                                </Form.Item>
+                            </div>
+                            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 17 }}>
+                                <Button type="primary" htmlType="submit">
+                                    Send Request
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </div>
                 </div>
-                <FooterComponent />
+            </div>
+            <FooterComponent />
 
-            </Layout>
-        );
+        </Layout>
+    );
 
-    }
 }
+

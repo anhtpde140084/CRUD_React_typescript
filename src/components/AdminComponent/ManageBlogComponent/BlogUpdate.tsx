@@ -251,6 +251,7 @@ interface IBlog {
         })
 
     }
+    
     // when input field change
     handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();

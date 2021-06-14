@@ -124,9 +124,9 @@ class BlogList extends React.Component<any, IBlogs>{
       width: '5%'
     },
     {
-      title: <Space><Search placeholder="Search By Title" onChange={e => this.onsearch(e.target.value)}
+      title: <Space><Search  placeholder="Search By Title" onChange={e => this.onsearch(e.target.value)}
 
-        type="primary" style={{ width: 200 }} />
+        type="primary" style={{ width: 270 }} />
       </Space>,
       dataIndex: 'action',
       render: (text: any, record: any) => (
@@ -137,7 +137,6 @@ class BlogList extends React.Component<any, IBlogs>{
         </Space>
       ),
     },
-
   ]
 
 

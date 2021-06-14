@@ -10,7 +10,7 @@ import Home from './Pages/Home';
 import BlogList from './Pages/BlogList';
 import { DetailBlog } from './Pages/DetailBlog';
 import { About } from './Pages/About';
-import  Contact  from './Pages/Contact';
+import  {Contact}  from './Pages/Contact';
 const { Header, Content, Footer } = Layout
 export const MainContentUser = (props: any) => {
 

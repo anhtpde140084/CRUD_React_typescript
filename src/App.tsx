@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './styles/App.css';
 import LoginComponent from './components/LoginComponent';
 import { MainDashBoard } from './components/AdminComponent/ManageBlogComponent/MainDashBoard';
@@ -15,7 +15,7 @@ import { DetailBlog } from './components/UserComponent/Pages/DetailBlog';
 import { About } from './components/UserComponent/Pages/About';
 import { ContactesList } from './components/AdminComponent/ManageContact/ContactesList';
 import { ContactedList } from './components/AdminComponent/ManageContact/ContactedList';
-import Contact from './components/UserComponent/Pages/Contact';
+import {Contact} from './components/UserComponent/Pages/Contact';
 function App() {
 
   return (
