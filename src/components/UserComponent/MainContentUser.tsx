@@ -7,7 +7,7 @@ import { HeaderComponent } from './Common/HeaderComponent';
 import FooterComponent from './Common/FooterComponent';
 import Home from './Pages/Home';
 
-import BlogList from './Pages/BlogList';
+import {BlogListUser} from './Pages/BlogList';
 import { DetailBlog } from './Pages/DetailBlog';
 import { About } from './Pages/About';
 import  {Contact}  from './Pages/Contact';
@@ -22,7 +22,7 @@ export const MainContentUser = (props: any) => {
                 <Route path="/" exact component={Home} />
                 <Route path="/home" exact component={Home} />
                 <Route path="/about" exact component={About} />
-                <Route path="/blogsList" exact component={BlogList} />
+                <Route path="/blogsList" exact component={BlogListUser} />
                 <Route path="/blog/view-blog/:id" exact component={DetailBlog} />
                 <Route path="/contact-us" exact component={Contact}/>
                 <FooterComponent />

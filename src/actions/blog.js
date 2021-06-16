@@ -84,7 +84,6 @@ export const retrieveBlogById = (id) => async (dispatch) => {
 export const updateBLogDetail = (id, blog) => async (dispatch) => {
   try {
     const res = await BlogService.updateBlog(blog, id);
-
     dispatch({
       type: UPDATE_BLOG,
       payload: res.data,

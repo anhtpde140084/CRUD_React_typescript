@@ -10,7 +10,7 @@ import BlogPost from './components/AdminComponent/ManageBlogComponent/BlogPost';
 import { ProfileCustom } from './components/AdminComponent/AccountComponent/ProfileCustom'
 import AdminRoute from './route/AdminRoute';
 import Home from './components/UserComponent/Pages/Home';
-import BlogListUser from './components/UserComponent/Pages/BlogList';
+import {BlogListUser} from './components/UserComponent/Pages/BlogList';
 import { DetailBlog } from './components/UserComponent/Pages/DetailBlog';
 import { About } from './components/UserComponent/Pages/About';
 import { ContactesList } from './components/AdminComponent/ManageContact/ContactesList';

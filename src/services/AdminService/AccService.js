@@ -18,7 +18,7 @@ import { BASE_URL_ADMIN } from "../CommonURL";
  * 06-07-2021          Anhtp8           Accout service
  */
 
-class BlogService {
+class AccService {
   // get account axios
   getAccs() {
     return axios.get(BASE_URL_ADMIN + "profile", { headers: authHeader() });
@@ -61,4 +61,4 @@ class BlogService {
   }
 }
 
-export default new BlogService();
+export default new AccService();

@@ -11,3 +11,8 @@ export const UPDATE_BLOG = "UPDATE_BLOG";
 export const DELETE_BLOG = "DELETE_BLOG";
 export const DELETE_ALL_BLOGS = "DELETE_ALL_BLOGS";
 export const RETRIEVE_BLOG_BY_ID = "RETRIEVE_BLOG_BY_ID";
+
+// const for user infor
+export const RETRIEVE_USER = "RETRIEVE_USER";
+export const UPDATE_USER = "UPDATE_USER";
+
